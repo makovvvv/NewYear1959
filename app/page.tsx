@@ -102,7 +102,12 @@ export default function Home() {
               ["SoundCloud", "https://soundcloud.com/heirloom9236/speaker-freak"],
               ["YouTube", "https://music.youtube.com/watch?v=ShTf3mWDkIo"],
             ].map(([label, link]) => (
-              <a key={label} href={link} target="_blank" className="w-full px-2 mt-3">
+              <a
+                key={label}
+                href={link}
+                target="_blank"
+                className="w-full px-2 mt-3 sm:max-w-[600px]"
+              >
                 <div className="btn-outline">
                   <span>{label}</span>
                 </div>
@@ -128,7 +133,7 @@ export default function Home() {
         }
 
         .btn-outline {
-          height: clamp(60px, 10vw, 80px);
+          height: clamp(60px, 12vw, 80px);
           border-radius: 16px;
           display: flex;
           justify-content: center;
@@ -150,6 +155,7 @@ export default function Home() {
           mix-blend-mode: normal;
           pointer-events: none;
           white-space: nowrap;
+          overflow: hidden;
           transition: all 0.3s ease;
         }
         .btn-outline:hover {
