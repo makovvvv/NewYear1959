@@ -105,8 +105,8 @@ export default function Home() {
               <a
                 key={label}
                 href={link}
-                target="_blank" 
-                className="w-full mt-3 sm:max-w-[600px]"
+                target="_blank"
+                className="w-full px-2 mt-3 sm:max-w-[600px]"
               >
                 <div className="btn-outline">
                   <span>{label}</span>
