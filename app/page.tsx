@@ -26,7 +26,6 @@ export default function Home() {
         {Array.from({ length: 10 }).map((_, i) => (
           <span key={`bloom-${i}`} className="dust dust-rise dust-xxl" />
         ))}
-
       </div>
 
       {/* ===== Foreground Content ===== */}
@@ -103,7 +102,7 @@ export default function Home() {
               ["SoundCloud", "https://soundcloud.com/heirloom9236/speaker-freak"],
               ["YouTube", "https://music.youtube.com/watch?v=ShTf3mWDkIo"],
             ].map(([label, link]) => (
-              <a key={label} href={link} target="_blank" className="w-full max-w-[600px] mt-3">
+              <a key={label} href={link} target="_blank" className="w-full px-2 mt-3">
                 <div className="btn-outline">
                   <span>{label}</span>
                 </div>
@@ -129,12 +128,13 @@ export default function Home() {
         }
 
         .btn-outline {
-          height: 80px;
+          height: clamp(60px, 10vw, 80px);
           border-radius: 16px;
           display: flex;
           justify-content: center;
           align-items: center;
           border: 4px solid white;
+          padding: 0 12px;
           background: white;
           overflow: hidden;
           position: relative;
@@ -143,12 +143,13 @@ export default function Home() {
         .btn-outline span {
           font-family: ".SF Numeric UltraCompressedUltralightG4", sans-serif;
           font-weight: 900;
-          font-size: 48px;
-          letter-spacing: 6px;
+          font-size: clamp(20px, 5vw, 48px);
+          letter-spacing: clamp(2px, 1vw, 6px);
           text-transform: uppercase;
           color: black;
           mix-blend-mode: normal;
           pointer-events: none;
+          white-space: nowrap;
           transition: all 0.3s ease;
         }
         .btn-outline:hover {
