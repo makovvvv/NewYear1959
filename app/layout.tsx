@@ -17,9 +17,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Heirloom",
   description: "Hare God",
-    icons: {
-    icon: "/favicon.ico",
-  },
 };
 
 export default function RootLayout({
