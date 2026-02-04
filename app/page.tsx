@@ -34,7 +34,7 @@ export default function Home() {
         {/* ===== Main Content ===== */}
         <div className="flex flex-col items-center w-full">
 
-          {/* Menu + Dropdown (Top Left) */}
+          {/* Menu + Dropdown */}
           <div className="relative mb-4 self-start">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -81,7 +81,7 @@ export default function Home() {
           {/* Buttons */}
           <div className="w-full flex flex-col items-center mt-6 gap-3">
 
-            {/* Instagram + TikTok side-by-side */}
+            {/* Instagram + TikTok */}
             <div className="flex w-full max-w-[600px] gap-3">
               <a href="https://www.instagram.com/helrloom" target="_blank" className="flex-1">
                 <div className="btn-outline flex justify-center items-center">
@@ -95,7 +95,7 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Other Buttons */}
+            {/* Text Buttons */}
             {[
               ["Spotify", "https://open.spotify.com/track/0yTj5gQUy6MXTmpOrsNWtn"],
               ["Apple", "https://music.apple.com/au/album/speaker-freak/1830684385?i=1830684386"],
@@ -105,7 +105,7 @@ export default function Home() {
               <a
                 key={label}
                 href={link}
-                target="_blank" 
+                target="_blank"
                 className="w-full mt-3 sm:max-w-[600px]"
               >
                 <div className="btn-outline">
@@ -124,9 +124,12 @@ export default function Home() {
 
       {/* ===== Styles ===== */}
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Script&display=swap');
+
         .slide-in-right {
           animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+
         @keyframes slideInRight {
           from { transform: translateX(-40%); opacity: 0; }
           to { transform: translateX(0); opacity: 1; }
@@ -145,24 +148,26 @@ export default function Home() {
           position: relative;
           transition: all 0.3s ease;
         }
+
         .btn-outline span {
-          font-family: ".SF Numeric UltraCompressedUltralightG4", sans-serif;
-          font-weight: 900;
-          font-size: clamp(20px, 5vw, 48px);
-          letter-spacing: clamp(2px, 1vw, 6px);
-          text-transform: uppercase;
+          font-family: "Playfair Script", cursive;
+          font-weight: 400;
+          font-size: clamp(26px, 6vw, 54px);
+          letter-spacing: 0.05em;
+          text-transform: none;
           color: black;
-          mix-blend-mode: normal;
           pointer-events: none;
           white-space: nowrap;
-          overflow: hidden;
           transition: all 0.3s ease;
         }
+
         .btn-outline:hover {
           background: transparent;
         }
+
         .btn-outline:hover span {
           color: white;
+          transform: translateY(-1px);
         }
 
         .gold-glow-top {
@@ -201,35 +206,20 @@ export default function Home() {
         .dust-3 { width: 22px; height: 22px; filter: blur(6px); animation-duration: 44s; }
         .dust-4 { width: 30px; height: 30px; filter: blur(9px); animation-duration: 55s; }
         .dust-5 { width: 40px; height: 40px; filter: blur(12px); animation-duration: 65s; }
+
         .dust-xl {
           width: 90px;
           height: 90px;
           filter: blur(25px);
           animation-duration: 80s;
-          background: radial-gradient(
-            circle,
-            rgba(255,230,180,0.6),
-            rgba(255,230,180,0.25),
-            transparent 75%
-          );
         }
+
         .dust-xxl {
           width: 150px;
           height: 150px;
           filter: blur(40px);
           animation-duration: 110s;
-          background: radial-gradient(
-            circle,
-            rgba(255,240,200,0.55),
-            rgba(255,240,200,0.2),
-            transparent 80%
-          );
         }
-        .dust:nth-child(3n)  { --x: 0.1; --y: 1.1; animation-delay: 0s; }
-        .dust:nth-child(4n)  { --x: 0.3; --y: 1.25; animation-delay: 12s; }
-        .dust:nth-child(5n)  { --x: 0.55; --y: 1.15; animation-delay: 22s; }
-        .dust:nth-child(6n)  { --x: 0.8; --y: 1.3; animation-delay: 34s; }
-        .dust:nth-child(7n)  { --x: 0.65; --y: 1.05; animation-delay: 48s; }
 
         @keyframes floatDust {
           0% { transform: translateY(0) scale(0.6); opacity: 0; }
