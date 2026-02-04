@@ -7,162 +7,127 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="w-screen min-h-screen relative overflow-hidden bg-black flex flex-col">
+    <div className="w-screen min-h-screen relative overflow-hidden bg-white">
 
-      {/* ===== Dense Camera Gold Dust Background ===== */}
+      {/* ===== Gold Dust Background ===== */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="gold-glow-top" />
-
-        {Array.from({ length: 25 }).map((_, i) => (
-          <span key={`init-${i}`} className={`dust dust-init dust-${i % 4}`} />
-        ))}
-
-        {Array.from({ length: 35 }).map((_, i) => (
-          <span key={`dust-${i}`} className={`dust dust-rise dust-${i % 6}`} />
-        ))}
-        {Array.from({ length: 18 }).map((_, i) => (
-          <span key={`bokeh-${i}`} className="dust dust-rise dust-xl" />
-        ))}
-        {Array.from({ length: 10 }).map((_, i) => (
-          <span key={`bloom-${i}`} className="dust dust-rise dust-xxl" />
+        {Array.from({ length: 60 }).map((_, i) => (
+          <span key={i} className="dust" />
         ))}
       </div>
 
-      {/* ===== Foreground Content ===== */}
-      <div className="relative z-10 flex flex-col justify-between text-white bg-black/30 min-h-screen px-4 sm:px-6 py-4 sm:py-6">
+      {/* ===== FULL SCREEN GIF ===== */}
+      <div className="relative w-screen h-screen z-10">
+        <img
+          src="/FILM.gif"
+          alt="Album Cover"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
 
-        {/* ===== Main Content ===== */}
-        <div className="flex flex-col items-center w-full">
+        {/* ===== Top Bar ===== */}
+        <div className="absolute top-0 left-0 w-full flex items-center justify-center px-4 py-4 z-40">
 
-          {/* Menu + Dropdown (Top Left) */}
-          <div className="relative mb-4 self-start">
+          {/* Menu */}
+          <div className="absolute left-4 -translate-y-[2px] z-50">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="relative w-8 h-6 z-50"
+              className="relative w-8 h-6"
               aria-label="Menu"
             >
               <span
-                className={`absolute left-0 top-1/2 h-[2px] bg-white transition-all duration-300
-                  ${menuOpen ? "w-6 rotate-45" : "w-6 -translate-y-2"}`}
+                className={`absolute left-0 top-1/2 h-[2px] bg-black transition-all duration-300
+                ${menuOpen ? "w-6 rotate-45" : "w-6 -translate-y-2"}`}
               />
               <span
-                className={`absolute left-0 top-1/2 h-[2px] bg-white transition-all duration-300
-                  ${menuOpen ? "w-6 -rotate-45" : "w-4 translate-y-2"}`}
+                className={`absolute left-0 top-1/2 h-[2px] bg-black transition-all duration-300
+                ${menuOpen ? "w-6 -rotate-45" : "w-4 translate-y-2"}`}
               />
             </button>
-
-            {menuOpen && (
-              <div className="absolute top-0 left-full ml-2 flex flex-col gap-3 text-lg tracking-widest uppercase text-white z-50 slide-in-right">
-                <Link href="/portfolio" onClick={() => setMenuOpen(false)}>
-                  Portfolio
-                </Link>
-              </div>
-            )}
           </div>
 
-          {/* Main Logo */}
-          <div className="w-full flex justify-center">
-            <img
-              src="/logogo.png"
-              alt="HEIRLOOM"
-              className="w-full max-w-[600px] min-w-[300px]"
-            />
+          {/* Center Logo */}
+          <img
+            src="/HeirLogo.png"
+            alt="HEIRLOOM"
+            className="h-10 sm:h-12 object-contain z-50"
+          />
+        </div>
+
+        {/* ===== Full-Height Left Panel ===== */}
+        {menuOpen && (
+          <div className="fixed top-0 left-0 h-screen w-[80vw] bg-white z-30 flex flex-col justify-center items-start animate-slide-in-left pl-8 shadow-lg">
+            <Link
+              href="/portfolio"
+              onClick={() => setMenuOpen(false)}
+              className="row-link"
+            >
+              Portfolio
+            </Link>
           </div>
+        )}
+      </div>
 
-          {/* Album Cover */}
-          <div className="w-full flex justify-center">
-            <img
-              src="/WAIT4U-2.gif"
-              alt="Album Cover"
-              className="w-full max-w-[600px] rounded-2xl mt-6 shadow-xl"
-            />
-          </div>
+      {/* ===== CONTENT AFTER HERO ===== */}
+      <div className="relative z-20 flex flex-col items-center px-4 sm:px-6 py-16 bg-white">
 
-          {/* Buttons */}
-          <div className="w-full flex flex-col items-center mt-6 gap-3">
-
-            {/* Instagram + TikTok side-by-side */}
-            <div className="flex w-full max-w-[600px] gap-3">
-              <a href="https://www.instagram.com/helrloom" target="_blank" className="flex-1">
-                <div className="btn-outline flex justify-center items-center">
-                  <img src="/ig.png" alt="Instagram" className="h-12 w-auto" />
-                </div>
-              </a>
-              <a href="https://www.tiktok.com/@helrloom" target="_blank" className="flex-1">
-                <div className="btn-outline flex justify-center items-center">
-                  <img src="/tik.png" alt="TikTok" className="h-12 w-auto" />
-                </div>
-              </a>
-            </div>
-
-            {/* Other Buttons */}
-            {[
-              ["Spotify", "https://open.spotify.com/track/0yTj5gQUy6MXTmpOrsNWtn"],
-              ["Apple", "https://music.apple.com/au/album/speaker-freak/1830684385?i=1830684386"],
-              ["SoundCloud", "https://soundcloud.com/heirloom9236/speaker-freak"],
-              ["YouTube", "https://music.youtube.com/watch?v=ShTf3mWDkIo"],
-            ].map(([label, link]) => (
-              <a
-                key={label}
-                href={link}
-                target="_blank" 
-                className="w-full mt-3 sm:max-w-[600px]"
-              >
-                <div className="btn-outline">
-                  <span>{label}</span>
-                </div>
-              </a>
-            ))}
-          </div>
+        {/* Minimal Link List */}
+        <div className="w-full max-w-[520px] flex flex-col">
+          {[
+            ["SPOTIFY", "https://open.spotify.com/track/0yTj5gQUy6MXTmpOrsNWtn"],
+            ["APPLE MUSIC", "https://music.apple.com/au/album/speaker-freak/1830684385?i=1830684386"],
+            ["SOUNDCLOUD", "https://soundcloud.com/heirloom9236/speaker-freak"],
+            ["YOUTUBE", "https://music.youtube.com/watch?v=ShTf3mWDkIo"],
+            ["INSTAGRAM", "https://www.instagram.com/helrloom"],
+            ["TIKTOK", "https://www.tiktok.com/@helrloom"],
+          ].map(([label, link], i) => (
+            <a key={label} href={link} target="_blank" className="row-link">
+              <span>{label}</span>
+              {i < 5 && <div className="divider" />}
+            </a>
+          ))}
         </div>
 
         {/* Bottom Logo */}
-        <div className="w-full flex justify-center mt-4">
-          <img src="/SOMF_radio_logo.png" alt="Bottom Logo" className="w-32 sm:w-40" />
+        <div className="flex justify-center mt-4">
+          <img
+            src="/SOMF.png"
+            alt="Bottom Logo"
+            className="w-24 sm:w-28 opacity-80"
+          />
         </div>
       </div>
 
       {/* ===== Styles ===== */}
       <style>{`
-        .slide-in-right {
-          animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes slideInRight {
-          from { transform: translateX(-40%); opacity: 0; }
+        @keyframes slideInLeft {
+          from { transform: translateX(-100%); opacity: 0; }
           to { transform: translateX(0); opacity: 1; }
         }
 
-        .btn-outline {
-          height: clamp(60px, 12vw, 80px);
-          border-radius: 16px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border: 4px solid white;
-          padding: 0 12px;
-          background: white;
-          overflow: hidden;
-          position: relative;
-          transition: all 0.3s ease;
+        .animate-slide-in-left {
+          animation: slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .btn-outline span {
-          font-family: ".SF Numeric UltraCompressedUltralightG4", sans-serif;
-          font-weight: 900;
-          font-size: clamp(20px, 5vw, 48px);
-          letter-spacing: clamp(2px, 1vw, 6px);
+
+        .row-link {
+          padding: 22px 0;
+          font-size: 14px;
+          letter-spacing: 0.35em;
           text-transform: uppercase;
           color: black;
-          mix-blend-mode: normal;
-          pointer-events: none;
-          white-space: nowrap;
-          overflow: hidden;
-          transition: all 0.3s ease;
+          transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        .btn-outline:hover {
-          background: transparent;
+
+        .row-link:hover {
+          opacity: 0.5;
+          transform: translateX(4px);
         }
-        .btn-outline:hover span {
-          color: white;
+
+        .divider {
+          margin-top: 20px;
+          height: 1px;
+          width: 100%;
+          background: rgba(0,0,0,0.15);
         }
 
         .gold-glow-top {
@@ -182,61 +147,17 @@ export default function Home() {
 
         .dust {
           position: absolute;
+          width: 5px;
+          height: 5px;
           border-radius: 50%;
-          opacity: 0;
-          animation: floatDust linear infinite;
-          background: radial-gradient(
-            circle,
-            rgba(255,220,150,0.9),
-            rgba(255,220,150,0.35),
-            transparent 70%
-          );
-          left: calc(100% * var(--x));
-          top: calc(130% * var(--y));
+          background: rgba(255,220,150,0.5);
+          animation: floatDust 14s linear infinite;
         }
-
-        .dust-0 { width: 6px; height: 6px; filter: blur(1px); animation-duration: 20s; }
-        .dust-1 { width: 10px; height: 10px; filter: blur(2px); animation-duration: 28s; }
-        .dust-2 { width: 16px; height: 16px; filter: blur(4px); animation-duration: 36s; }
-        .dust-3 { width: 22px; height: 22px; filter: blur(6px); animation-duration: 44s; }
-        .dust-4 { width: 30px; height: 30px; filter: blur(9px); animation-duration: 55s; }
-        .dust-5 { width: 40px; height: 40px; filter: blur(12px); animation-duration: 65s; }
-        .dust-xl {
-          width: 90px;
-          height: 90px;
-          filter: blur(25px);
-          animation-duration: 80s;
-          background: radial-gradient(
-            circle,
-            rgba(255,230,180,0.6),
-            rgba(255,230,180,0.25),
-            transparent 75%
-          );
-        }
-        .dust-xxl {
-          width: 150px;
-          height: 150px;
-          filter: blur(40px);
-          animation-duration: 110s;
-          background: radial-gradient(
-            circle,
-            rgba(255,240,200,0.55),
-            rgba(255,240,200,0.2),
-            transparent 80%
-          );
-        }
-        .dust:nth-child(3n)  { --x: 0.1; --y: 1.1; animation-delay: 0s; }
-        .dust:nth-child(4n)  { --x: 0.3; --y: 1.25; animation-delay: 12s; }
-        .dust:nth-child(5n)  { --x: 0.55; --y: 1.15; animation-delay: 22s; }
-        .dust:nth-child(6n)  { --x: 0.8; --y: 1.3; animation-delay: 34s; }
-        .dust:nth-child(7n)  { --x: 0.65; --y: 1.05; animation-delay: 48s; }
 
         @keyframes floatDust {
-          0% { transform: translateY(0) scale(0.6); opacity: 0; }
-          20% { opacity: 0.7; }
+          0% { transform: translateY(100vh); opacity: 0; }
           50% { opacity: 1; }
-          85% { opacity: 0.4; }
-          100% { transform: translateY(-180vh) scale(2.2); opacity: 0; }
+          100% { transform: translateY(-200vh); opacity: 0; }
         }
       `}</style>
     </div>
