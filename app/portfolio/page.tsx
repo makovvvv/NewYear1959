@@ -81,6 +81,8 @@ export default function PortfolioPage() {
             "/portfolio_items/change.jpg",
             "/cover.png",
             "/portfolio_items/10bucks.jpg",
+            "/portfolio_items/Wait4U_sh.jpg",
+            "/portfolio_items/HareGod.jpg",
           ].map((src, i) => (
             <div
               key={i}
