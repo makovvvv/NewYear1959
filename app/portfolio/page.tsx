@@ -72,7 +72,7 @@ export default function PortfolioPage() {
         {/* Masonry Grid */}
         <div className="columns-1 sm:columns-2 md:columns-3 gap-4 w-full max-w-[1200px] mx-auto">
           {[
-            "/portfolio_items/Burby.png",
+            
             "/portfolio_items/HareGod.jpeg",
             "/portfolio_items/somfradio.png",
             "/portfolio_items/burb.jpg",
@@ -84,6 +84,7 @@ export default function PortfolioPage() {
             "/cover.png",
             "/portfolio_items/10bucks.jpg",
             "/portfolio_items/Wait4U_sh.jpg",
+            "/portfolio_items/Burby.png",
 
           ].map((src, i) => (
             <div
