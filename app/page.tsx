@@ -24,49 +24,48 @@ export default function Home() {
           alt="Album Cover"
           className="absolute inset-0 w-full h-full object-cover"
         />
+      </div>
 
-        {/* ===== Top Bar ===== */}
-        <div className="absolute top-0 left-0 w-full flex items-center justify-center px-4 py-4 z-40">
-
-          {/* Menu */}
-          <div className="absolute left-4 -translate-y-[2px] z-50">
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="relative w-8 h-6"
-              aria-label="Menu"
-            >
-              <span
-                className={`absolute left-0 top-1/2 h-[2px] bg-black transition-all duration-300
-                ${menuOpen ? "w-6 rotate-45" : "w-6 -translate-y-2"}`}
-              />
-              <span
-                className={`absolute left-0 top-1/2 h-[2px] bg-black transition-all duration-300
-                ${menuOpen ? "w-6 -rotate-45" : "w-4 translate-y-2"}`}
-              />
-            </button>
-          </div>
-
-          {/* Center Logo */}
-          <img
-            src="/HeirLogo.png"
-            alt="HEIRLOOM"
-            className="h-10 sm:h-12 object-contain z-50"
-          />
+      {/* ===== Fixed Top Bar ===== */}
+      <div className="fixed top-0 left-0 w-full flex items-center justify-center px-4 py-4 z-50 bg-transparent">
+        {/* Menu */}
+        <div className="absolute left-4 -translate-y-[2px] z-50">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="relative w-8 h-6"
+            aria-label="Menu"
+          >
+            <span
+              className={`absolute left-0 top-1/2 h-[2px] bg-black transition-all duration-300
+              ${menuOpen ? "w-6 rotate-45" : "w-6 -translate-y-2"}`}
+            />
+            <span
+              className={`absolute left-0 top-1/2 h-[2px] bg-black transition-all duration-300
+              ${menuOpen ? "w-6 -rotate-45" : "w-4 translate-y-2"}`}
+            />
+          </button>
         </div>
 
-        {/* ===== Full-Height Left Panel ===== */}
-        {menuOpen && (
-          <div className="fixed top-0 left-0 h-screen w-[80vw] bg-white z-30 flex flex-col justify-center items-start animate-slide-in-left pl-8 shadow-lg">
-            <Link
-              href="/portfolio"
-              onClick={() => setMenuOpen(false)}
-              className="row-link"
-            >
-              Portfolio
-            </Link>
-          </div>
-        )}
+        {/* Center Logo */}
+        <img
+          src="/HeirLogo.png"
+          alt="HEIRLOOM"
+          className="h-10 sm:h-12 object-contain z-50"
+        />
       </div>
+
+      {/* ===== Full-Screen Gradient Panel ===== */}
+      {menuOpen && (
+        <div className="fixed top-0 left-0 w-screen h-screen z-40 flex flex-col justify-center items-start pl-8 bg-gradient-to-r from-white to-white/0 animate-slide-in-left">
+          <Link
+            href="/portfolio"
+            onClick={() => setMenuOpen(false)}
+            className="row-link"
+          >
+            Portfolio
+          </Link>
+        </div>
+      )}
 
       {/* ===== CONTENT AFTER HERO ===== */}
       <div className="relative z-20 flex flex-col items-center px-4 sm:px-6 py-16 bg-white">
@@ -77,7 +76,7 @@ export default function Home() {
             ["SPOTIFY", "https://open.spotify.com/track/0yTj5gQUy6MXTmpOrsNWtn"],
             ["APPLE MUSIC", "https://music.apple.com/au/album/speaker-freak/1830684385?i=1830684386"],
             ["SOUNDCLOUD", "https://soundcloud.com/heirloom9236/speaker-freak"],
-            ["YOUTUBE", "https://music.youtube.com/watch?v=ShTf3mWDkIo"],
+            ["YOUTUBE", "https://www.youtube.com/watch?v=ShTf3mWDkIo"],
             ["INSTAGRAM", "https://www.instagram.com/helrloom"],
             ["TIKTOK", "https://www.tiktok.com/@helrloom"],
           ].map(([label, link], i) => (
