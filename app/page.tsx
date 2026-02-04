@@ -72,7 +72,7 @@ export default function Home() {
           {/* Album Cover */}
           <div className="w-full flex justify-center">
             <img
-              src="/WAIT4U.gif"
+              src="/WAIT4U-2.gif"
               alt="Album Cover"
               className="w-full max-w-[600px] rounded-2xl mt-6 shadow-xl"
             />
