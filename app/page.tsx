@@ -97,6 +97,8 @@ export default function Home() {
         </div>
       </div>
 
+      
+
       {/* ===== Styles ===== */}
       <style>{`
         @keyframes slideInLeft {

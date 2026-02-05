@@ -6,49 +6,54 @@ import Link from "next/link";
 export default function PortfolioPage() {
   const [menuOpen, setMenuOpen] = useState(false); // boolean state for menu open/close
 
+
   return (
-    <div className="w-screen min-h-screen relative overflow-hidden bg-black text-white">
+    <div className="w-screen min-h-screen relative overflow-hidden bg-black text-white"> 
 
-      {/* ===== Gold Dust Background ===== */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="gold-glow-top" />
-        {Array.from({ length: 50 }).map((_, i) => (
-          <span key={`dust-${i}`} className={`dust dust-${i % 6}`} />
-        ))}
-        {Array.from({ length: 25 }).map((_, i) => (
-          <span key={`bokeh-${i}`} className="dust dust-xl" />
-        ))}
-        {Array.from({ length: 15 }).map((_, i) => (
-          <span key={`bloom-${i}`} className="dust dust-xxl" />
-        ))}
-      </div>
 
-      {/* ===== Fixed Menu Button ===== */}
-      <div className="fixed top-4 left-4 z-[60]">
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="relative w-8 h-6"
-          aria-label="Menu"
-        >
-          <span
-            className={`absolute left-0 top-1/2 h-[2px] transition-all duration-300
-            ${menuOpen ? "w-6 rotate-45 bg-black" : "w-6 -translate-y-2 bg-white"}`}
-          />
-          <span
-            className={`absolute left-0 top-1/2 h-[2px] transition-all duration-300
-            ${menuOpen ? "w-6 -rotate-45 bg-black" : "w-4 translate-y-2 bg-white"}`}
-          />
-        </button>
-      </div>
 
-{/* ===== Center Logo (Fixed, Top Middle) ===== */}
-<div className="fixed top-4 left-1/2 -translate-x-1/2 z-[60] flex items-center h-6">
+{/* ===== Fixed Top Bar ===== */}
+<div className="fixed top-0 left-0 w-full flex items-center justify-center px-4 py-4 z-50 bg-transparent">
+{/* Menu Icon */}
+<div className="absolute left-4 z-50">
+  <button
+    onClick={() => setMenuOpen(!menuOpen)}
+    className="relative w-8 h-6"
+    aria-label="Menu"
+  >
+    <span
+      className={`absolute left-0 top-1/2 h-[2px] transition-all duration-300
+        ${menuOpen ? "w-6 rotate-45 bg-black" : "w-6 -translate-y-2 bg-white"}`}
+    />
+    <span
+      className={`absolute left-0 top-1/2 h-[2px] transition-all duration-300
+        ${menuOpen ? "w-6 -rotate-45 bg-black" : "w-4 translate-y-2 bg-white"}`}
+    />
+  </button>
+</div>
+
+
+  {/* Center Logo */}
   <img
     src="/HeirLogo_white.png"
     alt="HEIRLOOM"
-    className="h-10 sm:h-12 object-contain"
+    className="h-10 sm:h-12 object-contain z-50"
   />
 </div>
+
+{/* ===== Top Gradient Overlay ===== */}
+<div
+  className="fixed top-0 left-0 w-full h-40 z-40 pointer-events-none"
+  style={{
+    background: "linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0))",
+  }}
+/>
+
+
+
+
+
+
 
 
       {/* ===== Full-Screen Gradient Menu Panel ===== */}
@@ -64,64 +69,95 @@ export default function PortfolioPage() {
         </div>
       )}
 
-      {/* ===== Scrollable Content ===== */}
-      <div className="relative z-10 flex flex-col min-h-screen px-4 sm:px-6 py-4 sm:py-6">
+{/* ===== Scrollable Content ===== */}
+<div className="relative z-10 flex flex-col min-h-screen px-4 sm:px-6 py-4 sm:py-6">
 
-{/* ===== Feature Image + Title Stack ===== */}
-<div className="w-full flex flex-col items-center mt-12 mb-6">
 
-                    {/* top divider */}
-          <div className="w-full max-w-[600px] h-px bg-white/20 mb-3" />
+
+  {/* ===== Feature Image + Title Stack ===== */}
+  <div className="w-full flex flex-col items-center mt-12 mb-6">
+    {/* top divider */}
+    <div className="w-full max-w-[600px] h-px bg-white/20 mb-3" />
+
+    {/* Portfolio title */}
+    <div className="w-full flex justify-center">
+      <img
+        src="/portfolioTitle.png"
+        alt="Portfolio"
+        className="w-full max-w-[600px] min-w-[300px]"
+      />
+    </div>
+  </div>
+
+  {/* ===== Masonry Grid ===== */}
+  <div className="columns-1 sm:columns-2 md:columns-3 gap-4 w-full max-w-[1200px] mx-auto">
+    {[
+      "/portfolio_items/HareGod.jpeg",
+      "/portfolio_items/somfradio.png",
+      "/portfolio_items/burb.jpg",
+      "/portfolio_items/wait4u_poster_v2.png",
+      "/portfolio_items/cloak.png",
+      "/portfolio_items/tvgirl.png",
+      "/portfolio_items/workout.jpg",
+      "/portfolio_items/change.jpg",
+      "/cover.png",
+      "/portfolio_items/10bucks.jpg",
+      "/portfolio_items/Wait4U_sh.jpg",
+      "/portfolio_items/Burby.png",
+    ].map((src, i) => (
+      <div
+        key={i}
+        className="mb-4 break-inside-avoid rounded-lg overflow-hidden"
+      >
+        <img src={src} className="w-full h-auto object-cover rounded-lg" />
+      </div>
+    ))}
+  </div>
+
+{/* ===== Bottom Portfolio Stuff + Divider ===== */}
+<div className="w-full flex flex-col items-center mt-1">
+  {/* bottom divider centered */}
+  <div className="flex justify-center w-full mb-1">
+    <div className="w-full max-w-[600px] h-px bg-white/20" />
+  </div>
 
   {/* Portfolio stuff image */}
-  <div className="w-full max-w-[600px] mb-2">
+  <div className="flex justify-center w-full max-w-[600px]">
     <img
       src="/portfolio_items/Portfolio_stuff.png"
       alt="Feature strip"
       className="w-full h-auto block"
     />
   </div>
+</div>
 
-  {/* Portfolio title */}
-  <div className="w-full flex justify-center">
-    <img
-      src="/portfolioTitle.png"
-      alt="Portfolio"
-      className="w-full max-w-[600px] min-w-[300px]"
-    />
-  </div>
+{/* ===== Another centered divider if needed ===== */}
+<div className="flex justify-center w-full mb-1">
+  <div className="w-full max-w-[600px] h-px bg-white/20" />
+</div>
 
+{/* ===== Bottom Instagram + Email Buttons ===== */}
+<div className="w-full flex flex-col items-center mt-4 mb-4 space-y-2">
+  {[
+    ["INSTAGRAM", "https://www.instagram.com/helrloom/"],
+    ["EMAIL", "mailto:heirloom3345@gmail.com"],
+  ].map(([label, link]) => (
+    <a
+      key={label}
+      href={link}
+      target="_blank"
+      className="row-link text-center"
+    >
+      {label}
+    </a>
+  ))}
 </div>
 
 
 
 
+</div>
 
-        {/* ===== Masonry Grid ===== */}
-        <div className="columns-1 sm:columns-2 md:columns-3 gap-4 w-full max-w-[1200px] mx-auto">
-          {[
-            "/portfolio_items/HareGod.jpeg",
-            "/portfolio_items/somfradio.png",
-            "/portfolio_items/burb.jpg",
-            "/portfolio_items/wait4u_poster_v2.png",
-            "/portfolio_items/cloak.png",
-            "/portfolio_items/tvgirl.png",
-            "/portfolio_items/workout.jpg",
-            "/portfolio_items/change.jpg",
-            "/cover.png",
-            "/portfolio_items/10bucks.jpg",
-            "/portfolio_items/Wait4U_sh.jpg",
-            "/portfolio_items/Burby.png",
-          ].map((src, i) => (
-            <div
-              key={i}
-              className="mb-4 break-inside-avoid rounded-lg overflow-hidden"
-            >
-              <img src={src} className="w-full h-auto object-cover rounded-lg" />
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* ===== Styles ===== */}
       <style>{`
