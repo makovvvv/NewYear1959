@@ -46,13 +46,13 @@ export default function Home() {
           </button>
         </div>
 
-{/* ===== Top Gradient Overlay ===== */}
+{/* ===== Top Gradient Overlay =====
 <div
   className="fixed top-0 left-0 w-full h-40 z-40 pointer-events-none"
   style={{
     background: "linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(255,255,255,0))",
   }}
-/>
+/> */}
 
 
         {/* Center Logo */}
