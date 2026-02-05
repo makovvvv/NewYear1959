@@ -89,6 +89,8 @@ export default function PortfolioPage() {
     </div>
   </div>
 
+  
+
   {/* ===== Masonry Grid ===== */}
   <div className="columns-1 sm:columns-2 md:columns-3 gap-4 w-full max-w-[1200px] mx-auto">
     {[
