@@ -9,13 +9,7 @@ export default function Home() {
   return (
     <div className="w-screen min-h-screen relative overflow-hidden bg-white">
 
-      {/* ===== Gold Dust Background ===== */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="gold-glow-top" />
-        {Array.from({ length: 60 }).map((_, i) => (
-          <span key={i} className="dust" />
-        ))}
-      </div>
+
 
       {/* ===== FULL SCREEN GIF ===== */}
       <div className="relative w-screen h-screen z-10">
@@ -46,21 +40,16 @@ export default function Home() {
           </button>
         </div>
 
-{/* ===== Top Gradient Overlay =====
-<div
-  className="fixed top-0 left-0 w-full h-40 z-40 pointer-events-none"
-  style={{
-    background: "linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(255,255,255,0))",
-  }}
-/> */}
+
 
 
         {/* Center Logo */}
-        <img
-          src="/HeirLogo.png"
-          alt="HEIRLOOM"
-          className="h-10 sm:h-12 object-contain z-50"
-        />
+<img
+  src="/HeirLogo.png"
+  alt="HEIRLOOM"
+  className="h-10 sm:h-12 object-contain z-50 mix-blend-difference"
+/>
+
       </div>
 
       {/* ===== Full-Screen Gradient Panel ===== */}
@@ -106,6 +95,27 @@ export default function Home() {
         </div>
       </div>
 
+{/* ===== Scrolling Whisper Text ===== */}
+{/* <div className="whisper-container">
+  <div className="whisper-track">
+    <div className="whisper-group">
+      <span>Wait4Me and I’ll Wait4U · Die4Me and I’ll Die4U</span>
+      <span>Wait4Me and I’ll Wait4U · Die4Me and I’ll Die4U</span>
+      <span>Wait4Me and I’ll Wait4U · Die4Me and I’ll Die4U</span>
+      <span>Wait4Me and I’ll Wait4U · Die4Me and I’ll Die4U</span>
+    </div>
+
+    <div className="whisper-group">
+      <span>Wait4Me and I’ll Wait4U · Die4Me and I’ll Die4U</span>
+      <span>Wait4Me and I’ll Wait4U · Die4Me and I’ll Die4U</span>
+      <span>Wait4Me and I’ll Wait4U · Die4Me and I’ll Die4U</span>
+      <span>Wait4Me and I’ll Wait4U · Die4Me and I’ll Die4U</span>
+    </div>
+  </div>
+</div> */}
+
+
+
       
 
       {/* ===== Styles ===== */}
@@ -140,35 +150,70 @@ export default function Home() {
           background: rgba(0,0,0,0.15);
         }
 
-        .gold-glow-top {
-          position: absolute;
-          top: -40%;
-          left: -25%;
-          width: 150%;
-          height: 70%;
-          background: radial-gradient(
-            ellipse at top,
-            rgba(255,215,120,0.25),
-            rgba(255,215,120,0.08),
-            transparent 70%
-          );
-          filter: blur(100px);
-        }
 
-        .dust {
-          position: absolute;
-          width: 5px;
-          height: 5px;
-          border-radius: 50%;
-          background: rgba(255,220,150,0.5);
-          animation: floatDust 14s linear infinite;
-        }
+/* ===== Whisper Marquee ===== */
+.whisper-container {
+  position: relative;
+  width: 100%;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  pointer-events: none;
+}
 
-        @keyframes floatDust {
-          0% { transform: translateY(100vh); opacity: 0; }
-          50% { opacity: 1; }
-          100% { transform: translateY(-200vh); opacity: 0; }
-        }
+.whisper-track {
+  display: flex;
+  width: max-content;
+  animation: whisper-scroll 50s linear infinite;
+}
+
+.whisper-group {
+  display: flex;
+}
+
+.whisper-track span {
+  margin-right: 4rem;
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+}
+
+/* Edge fade */
+.whisper-container::before,
+.whisper-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.whisper-container::before {
+  left: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+
+.whisper-container::after {
+  right: 0;
+  background: linear-gradient(to left, white, transparent);
+}
+
+@keyframes whisper-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+
+
       `}</style>
     </div>
   );

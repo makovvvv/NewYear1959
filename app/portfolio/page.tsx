@@ -6,6 +6,14 @@ import Link from "next/link";
 export default function PortfolioPage() {
   const [menuOpen, setMenuOpen] = useState(false); // boolean state for menu open/close
 
+const scrollToBottom = () => {
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: "smooth",
+  });
+};
+
+
 
   return (
     <div className="w-screen min-h-screen relative overflow-hidden bg-black text-white"> 
@@ -31,6 +39,30 @@ export default function PortfolioPage() {
     />
   </button>
 </div>
+
+{/* Letter Icon (RIGHT) */}
+<div className="absolute right-4 z-50">
+  <button
+    onClick={scrollToBottom}
+    aria-label="Contact"
+    className="relative w-8 h-6 flex items-center justify-center transition-opacity duration-300 hover:opacity-70"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="white"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="w-6 h-6"
+    >
+      <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+      <polyline points="22,6 12,13 2,6" />
+    </svg>
+  </button>
+</div>
+
 
 
   {/* Center Logo */}
@@ -97,6 +129,7 @@ export default function PortfolioPage() {
       "/portfolio_items/HareGod.jpeg",
       "/portfolio_items/somfradio.png",
       "/portfolio_items/burb.jpg",
+      "/portfolio_items/RICK.png",
       "/portfolio_items/wait4u_poster_v2.png",
       "/portfolio_items/cloak.png",
       "/portfolio_items/tvgirl.png",
