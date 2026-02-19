@@ -128,17 +128,19 @@ const scrollToBottom = () => {
     {[
       "/portfolio_items/HareGod.jpeg",
       "/portfolio_items/somfradio.png",
-      "/portfolio_items/burb.jpg",
+      // "/portfolio_items/burb.jpg",
       "/portfolio_items/RICK.png",
-      "/portfolio_items/wait4u_poster_v2.png",
-      "/portfolio_items/cloak.png",
+      // "/portfolio_items/wait4u_poster_v2.png",
+
+      "/portfolio_items/10bucks.jpg",
       "/portfolio_items/tvgirl.png",
-      "/portfolio_items/workout.jpg",
+      "/portfolio_items/workout.jpg", 
       "/portfolio_items/change.jpg",
       "/cover.png",
-      "/portfolio_items/10bucks.jpg",
+      "/portfolio_items/cloak.png",
       "/portfolio_items/Wait4U_sh.jpg",
       "/portfolio_items/Burby.png",
+      "/portfolio_items/WAIT4U_COVER_new.png",
     ].map((src, i) => (
       <div
         key={i}
