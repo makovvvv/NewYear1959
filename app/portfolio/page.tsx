@@ -13,7 +13,8 @@ type PortfolioItem = {
   description?: string;
   src?: string;
   images?: PortfolioImage[];
-  layout?: "styling" | "graphic-design" | "placeholder" | "gif";
+  video?: string;
+  layout?: "styling" | "graphic-design" | "placeholder" | "video";
   spotifyEmbed?: string;
 };
 
@@ -81,15 +82,10 @@ const portfolioItems: PortfolioItem[] = [
 
   {
     title: "Wait4U",
-    layout: "gif",
+    layout: "video",
     description:
-      "Music video production, direction and editing for the single 'Wait4U'",
-    images: [
-      {
-        src: "/portfolio_items/Wait4U_video.gif",
-        alt: "Wait4U",
-      },
-    ],
+      "Music video production, direction and editing for the single 'Wait4U'.",
+    video: "/portfolio_items/Wait4U_video.mp4",
   },
 ];
 
@@ -709,7 +705,7 @@ export default function PortfolioPage() {
                         ] = element;
                       }}
                       className={`portfolio-card absolute left-1/2 top-1/2 ${
-                        portfolioItem.images
+                        portfolioItem.images || portfolioItem.video
                           ? `grouped-card ${portfolioItem.layout}-card`
                           : ""
                       }`}
@@ -734,18 +730,34 @@ export default function PortfolioPage() {
                         `}
                       >
                         <div className="portfolio-image-frame">
-                          {portfolioItem.images ? (
+                          {portfolioItem.video ? (
+                            <video
+                              src={portfolioItem.video}
+                              autoPlay
+                              loop
+                              muted
+                              playsInline
+                              preload="metadata"
+                              aria-label={portfolioItem.title}
+                              className="portfolio-video"
+                            />
+                          ) : portfolioItem.images ? (
                             <div
-                                className={`project-spread ${portfolioItem.layout}-spread`}
-                                aria-label={`${portfolioItem.title} projects`}
-                              >
+                              className={`project-spread ${portfolioItem.layout}-spread`}
+                              aria-label={`${portfolioItem.title} projects`}
+                            >
                               {portfolioItem.images.map(
                                 (image, imageIndex) => (
                                   <img
                                     key={image.src}
                                     src={image.src}
                                     alt={image.alt}
-                                    loading="eager"
+                                    loading={
+                                      index <= 1
+                                        ? "eager"
+                                        : "lazy"
+                                    }
+                                    decoding="async"
                                     className={`project-image ${portfolioItem.layout}-image ${portfolioItem.layout}-image-${imageIndex + 1}`}
                                   />
                                 )
@@ -760,6 +772,7 @@ export default function PortfolioPage() {
                                   ? "eager"
                                   : "lazy"
                               }
+                              decoding="async"
                               className="h-full w-full object-contain"
                             />
                           )}
@@ -969,20 +982,22 @@ export default function PortfolioPage() {
           transform: translate(-8%, -42%) rotate(5deg);
         }
 
-        /* Single GIF section */
-        .gif-card {
+        /* Single MP4 video section */
+        .video-card {
           width: min(64vw, 900px);
           height: min(76vh, 820px);
         }
 
-        .gif-image {
+        .portfolio-video {
+          display: block;
           width: 90%;
           height: 88%;
-        }
-
-        .gif-image-1 {
-          z-index: 1;
-          transform: translate(-50%, -50%);
+          object-fit: contain;
+          border-radius: 4px;
+          background: transparent;
+          filter: drop-shadow(
+            0 24px 34px rgba(0, 0, 0, 0.35)
+          );
         }
 
         .portfolio-copy {
@@ -1228,12 +1243,12 @@ export default function PortfolioPage() {
             transform: translate(-12%, -42%) rotate(4deg);
           }
 
-          .gif-card {
+          .video-card {
             width: min(88vw, 800px);
             height: min(72vh, 720px);
           }
 
-          .gif-image {
+          .portfolio-video {
             width: 92%;
             height: 86%;
           }
@@ -1317,18 +1332,17 @@ export default function PortfolioPage() {
             transform: translate(-22%, -22%) rotate(4deg);
           }
 
-          .gif-card {
+          .video-card {
             width: 94vw;
             height: 70vh;
           }
 
-          .gif-image {
+          .portfolio-video {
             width: 96%;
             height: 82%;
-          }
-
-          .gif-image-1 {
-            transform: translate(-50%, -50%);
+            filter: drop-shadow(
+              0 10px 14px rgba(0, 0, 0, 0.2)
+            );
           }
 
           .grouped-card .portfolio-copy {
