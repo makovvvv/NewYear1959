@@ -1015,16 +1015,22 @@ export default function PortfolioPage() {
         }
 
         .spotify-embed {
-          width: min(340px, 46vw);
+          width: 100%;
+          max-width: 340px;
+          min-width: 0;
           margin-top: 12px;
           position: relative;
           z-index: 10;
+          overflow: hidden;
+          border-radius: 12px;
           pointer-events: auto;
         }
 
         .spotify-embed iframe {
           display: block;
           width: 100%;
+          max-width: 100%;
+          min-width: 0;
           border: 0;
           border-radius: 12px;
           background: transparent;
@@ -1350,7 +1356,9 @@ export default function PortfolioPage() {
           }
 
           .portfolio-copy {
-            max-width: 62vw;
+            width: min(82vw, 320px);
+            max-width: min(82vw, 320px);
+            min-width: 0;
           }
 
           .portfolio-description {
@@ -1360,7 +1368,8 @@ export default function PortfolioPage() {
           }
 
           .spotify-embed {
-            width: min(78vw, 320px);
+            width: 100%;
+            max-width: 100%;
             margin-top: 10px;
           }
 
