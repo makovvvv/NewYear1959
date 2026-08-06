@@ -3,59 +3,93 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
-type PortfolioItem = {
+type PortfolioImage = {
   src: string;
+  alt: string;
+};
+
+type PortfolioItem = {
   title: string;
+  description?: string;
+  src?: string;
+  images?: PortfolioImage[];
+  layout?: "styling" | "graphic-design" | "placeholder" | "gif";
+  spotifyEmbed?: string;
 };
 
 const portfolioItems: PortfolioItem[] = [
   {
-    src: "/portfolio_items/HareGod.jpeg",
-    title: "Hare God",
+    title: "Styling",
+    layout: "styling",
+    description:
+      "Conceptual styling for various projects and promotional material including album covers, posters, and social media content.",
+    images: [
+      {
+        src: "/portfolio_items/RICK.png",
+        alt: "Rick styling",
+      },
+      {
+        src: "/portfolio_items/HareGod.jpeg",
+        alt: "Hare God styling",
+      },
+      {
+        src: "/portfolio_items/Burby.png",
+        alt: "Burby styling",
+      },
+    ],
   },
+
   {
-    src: "/portfolio_items/somfradio.png",
-    title: "SOMF Radio",
+    title: "Graphic Design",
+    layout: "graphic-design",
+    description:
+      "Graphic design for music releases, promotional campaigns, digital media, and visual identities.",
+    images: [
+      {
+        src: "/portfolio_items/somfradio.png",
+        alt: "SOMF Radio graphic design",
+      },
+      {
+        src: "/portfolio_items/10bucks.jpg",
+        alt: "10 Bucks graphic design",
+      },
+      {
+        src: "/portfolio_items/WAIT4U_COVER_new.png",
+        alt: "Wait 4 U cover graphic design",
+      },
+    ],
   },
+
   {
-    src: "/portfolio_items/RICK.png",
-    title: "Rick",
+    title: "Working with Edward Skeltrix & Music production",
+    layout: "placeholder",
+    description:
+      "Music production with artists such as Edward Skeletrix on the project 'Body of Work'. ",
+      spotifyEmbed:
+    "https://open.spotify.com/embed/track/575dwAqwswg22jaauxebab?utm_source=generator&si=1cf68fba65754184",
+    images: [
+      {
+        src: "/portfolio_items/AISTLOOM_cover.png",
+        alt: "Placeholder project one",
+      },
+      {
+        src: "/portfolio_items/BodyOfWork_cover.png",
+        alt: "Placeholder project two",
+      },
+    ],
   },
+
   {
-    src: "/portfolio_items/10bucks.jpg",
-    title: "10 Bucks",
-  },
-  {
-    src: "/portfolio_items/tvgirl.png",
-    title: "TV Girl",
-  },
-  {
-    src: "/portfolio_items/workout.jpg",
-    title: "Workout",
-  },
-  {
-    src: "/portfolio_items/change.jpg",
-    title: "Change",
-  },
-  {
-    src: "/cover.png",
-    title: "Cover",
-  },
-  {
-    src: "/portfolio_items/cloak.png",
-    title: "Cloak",
-  },
-  {
-    src: "/portfolio_items/Wait4U_sh.jpg",
-    title: "Wait 4 U",
-  },
-  {
-    src: "/portfolio_items/Burby.png",
-    title: "Burby",
-  },
-  {
-    src: "/portfolio_items/WAIT4U_COVER_new.png",
-    title: "Wait 4 U Cover",
+    title: "Wait4U",
+    layout: "gif",
+    description:
+      "Music video production, direction and editing for the single 'Wait4U'",
+    images: [
+      {
+        src: "/portfolio_items/Wait4U_video.gif",
+        alt: "Wait4U",
+      },
+    ],
   },
 ];
 
@@ -107,7 +141,7 @@ export default function PortfolioPage() {
        * Scroll space used for the first image to enter.
        */
       const entranceDistance =
-        viewportHeight * 0.22;
+        viewportHeight * 0.14;
 
       /*
        * Scroll space used for each normal portfolio transition.
@@ -439,7 +473,7 @@ export default function PortfolioPage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-clip bg-black text-white">
+    <div className="relative min-h-screen w-full overflow-x-clip bg-white text-black">
       {/* ===== Fixed Top Bar ===== */}
       <header className="fixed left-0 top-0 z-50 flex w-full items-center justify-center px-4 py-4">
         {/* Menu Icon */}
@@ -463,7 +497,7 @@ export default function PortfolioPage() {
                 ${
                   menuOpen
                     ? "w-6 rotate-45 bg-black"
-                    : "w-6 -translate-y-2 bg-white"
+                    : "w-6 -translate-y-2 bg-black"
                 }
               `}
             />
@@ -475,7 +509,7 @@ export default function PortfolioPage() {
                 ${
                   menuOpen
                     ? "w-6 -rotate-45 bg-black"
-                    : "w-4 translate-y-2 bg-white"
+                    : "w-4 translate-y-2 bg-black"
                 }
               `}
             />
@@ -497,7 +531,7 @@ export default function PortfolioPage() {
               stroke={
                 menuOpen
                   ? "black"
-                  : "white"
+                  : "black"
               }
               strokeWidth="2"
               strokeLinecap="round"
@@ -523,7 +557,7 @@ export default function PortfolioPage() {
           src="/HeirLogo_white.png"
           alt="HEIRLOOM"
           className={`
-            z-50 h-10 object-contain
+            z-50 h-10 object-contain invert
             transition-opacity duration-300
             sm:h-12
             ${
@@ -550,7 +584,7 @@ export default function PortfolioPage() {
         `}
         style={{
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0))",
+            "linear-gradient(to bottom, rgba(255,255,255,0.96), rgba(255,255,255,0))",
         }}
       />
 
@@ -560,7 +594,7 @@ export default function PortfolioPage() {
           fixed inset-0 z-40
           flex items-center pl-8
           bg-gradient-to-r
-          from-white via-white/95 to-white/0
+          from-black via-black/95 to-black/0
           transition-all duration-500
           ${
             menuOpen
@@ -574,7 +608,7 @@ export default function PortfolioPage() {
           onClick={() =>
             setMenuOpen(false)
           }
-          className="panel-link"
+          className="panel-link menu-panel-link"
         >
           Home
         </Link>
@@ -584,16 +618,16 @@ export default function PortfolioPage() {
         {/* ===== Full-Screen Portfolio Intro ===== */}
         <section className="relative z-10 flex h-screen w-full items-center justify-center px-4 sm:px-6">
           <div className="flex w-full flex-col items-center justify-center">
-            <div className="mb-3 h-px w-full max-w-[600px] bg-white/20" />
+            <div className="mb-3 h-px w-full max-w-[600px] bg-black/15" />
 
             <img
               src="/portfolioTitle.png"
               alt="Portfolio"
-              className="w-full min-w-[280px] max-w-[600px]"
+              className="w-full min-w-[280px] max-w-[600px] invert"
             />
 
             <div className="mt-8 flex flex-col items-center">
-              <p className="text-[9px] uppercase tracking-[0.45em] text-white/40">
+              <p className="text-[9px] uppercase tracking-[0.45em] text-black/40">
                 Scroll to explore
               </p>
 
@@ -605,7 +639,7 @@ export default function PortfolioPage() {
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="scroll-arrow mt-4 h-5 w-5 text-white/40"
+                className="scroll-arrow mt-4 h-5 w-5 text-black/40"
                 aria-hidden="true"
               >
                 <path d="M12 5v14" />
@@ -618,7 +652,7 @@ export default function PortfolioPage() {
         {/* ===== Portfolio Scroll Area ===== */}
         <section
           ref={portfolioScrollRef}
-          className="relative -mt-[35vh]"
+          className="relative -mt-[52vh]"
           style={{
             /*
              * Extra height includes the first-item
@@ -627,7 +661,7 @@ export default function PortfolioPage() {
             height: `calc(${
               portfolioItems.length *
               135
-            }vh + 40vh)`,
+            }vh + 24vh)`,
           }}
         >
           {/* ===== Sticky Portfolio Stage ===== */}
@@ -643,7 +677,7 @@ export default function PortfolioPage() {
             <div className="pointer-events-none absolute inset-0">
               <div className="cylinder-glow" />
 
-              <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/[0.08] to-transparent" />
+              <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-black/[0.08] to-transparent" />
             </div>
 
             {/* Portfolio Images */}
@@ -664,7 +698,7 @@ export default function PortfolioPage() {
 
                   return (
                     <article
-                      key={`${portfolioItem.src}-${index}`}
+                      key={`${portfolioItem.title}-${index}`}
                       ref={(
                         element:
                           | HTMLElement
@@ -674,7 +708,11 @@ export default function PortfolioPage() {
                           index
                         ] = element;
                       }}
-                      className="portfolio-card absolute left-1/2 top-1/2"
+                      className={`portfolio-card absolute left-1/2 top-1/2 ${
+                        portfolioItem.images
+                          ? `grouped-card ${portfolioItem.layout}-card`
+                          : ""
+                      }`}
                       style={{
                         transformStyle:
                           "preserve-3d",
@@ -696,20 +734,35 @@ export default function PortfolioPage() {
                         `}
                       >
                         <div className="portfolio-image-frame">
-                          <img
-                            src={
-                              portfolioItem.src
-                            }
-                            alt={
-                              portfolioItem.title
-                            }
-                            loading={
-                              index < 3
-                                ? "eager"
-                                : "lazy"
-                            }
-                            className="h-full w-full object-contain"
-                          />
+                          {portfolioItem.images ? (
+                            <div
+                                className={`project-spread ${portfolioItem.layout}-spread`}
+                                aria-label={`${portfolioItem.title} projects`}
+                              >
+                              {portfolioItem.images.map(
+                                (image, imageIndex) => (
+                                  <img
+                                    key={image.src}
+                                    src={image.src}
+                                    alt={image.alt}
+                                    loading="eager"
+                                    className={`project-image ${portfolioItem.layout}-image ${portfolioItem.layout}-image-${imageIndex + 1}`}
+                                  />
+                                )
+                              )}
+                            </div>
+                          ) : (
+                            <img
+                              src={portfolioItem.src}
+                              alt={portfolioItem.title}
+                              loading={
+                                index < 3
+                                  ? "eager"
+                                  : "lazy"
+                              }
+                              className="h-full w-full object-contain"
+                            />
+                          )}
                         </div>
 
                         <div
@@ -723,7 +776,7 @@ export default function PortfolioPage() {
                             }
                           `}
                         >
-                          <span className="text-[9px] tracking-[0.35em] text-white/35">
+                          <span className="text-[9px] tracking-[0.35em] text-black/35">
                             {String(
                               index + 1
                             ).padStart(
@@ -734,11 +787,42 @@ export default function PortfolioPage() {
 
                           <div className="h-px w-10 bg-white/25" />
 
-                          <h2 className="text-[10px] uppercase tracking-[0.3em] text-white/65">
-                            {
-                              portfolioItem.title
-                            }
-                          </h2>
+                          <div
+                            className={`portfolio-copy ${
+                              isLeft
+                                ? "text-left"
+                                : "text-right"
+                            }`}
+                          >
+                            <h2 className="text-[10px] uppercase tracking-[0.3em] text-black/65">
+                              {
+                                portfolioItem.title
+                              }
+                            </h2>
+
+                            {portfolioItem.description && (
+                              <p className="portfolio-description">
+                                {
+                                  portfolioItem.description
+                                }
+                              </p>
+                            )}
+
+                            {portfolioItem.spotifyEmbed && (
+                              <div className="spotify-embed">
+                                <iframe
+                                  src={portfolioItem.spotifyEmbed}
+                                  width="100%"
+                                  height="80"
+                                  frameBorder="0"
+                                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                  allowFullScreen
+                                  loading="lazy"
+                                  title={`${portfolioItem.title} on Spotify`}
+                                />
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </article>
@@ -747,25 +831,25 @@ export default function PortfolioPage() {
               )}
             </div>
 
-            <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8px] uppercase tracking-[0.5em] text-white/20">
+            <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[8px] uppercase tracking-[0.5em] text-black/20">
               Heirloom Portfolio
             </div>
           </div>
         </section>
 
         {/* ===== Bottom Portfolio Content ===== */}
-        <section className="relative z-10 flex w-full flex-col items-center bg-black px-4 pb-10 pt-14 sm:px-6">
-          <div className="mb-1 h-px w-full max-w-[600px] bg-white/20" />
+        <section className="relative z-10 flex w-full flex-col items-center bg-white px-4 pb-10 pt-14 sm:px-6">
+          <div className="mb-1 h-px w-full max-w-[600px] bg-black/25" />
 
           <div className="w-full max-w-[600px]">
             <img
               src="/portfolio_items/Portfolio_stuff.png"
               alt="Portfolio information"
-              className="block h-auto w-full"
+              className="block h-auto w-full invert"
             />
           </div>
 
-          <div className="mb-5 h-px w-full max-w-[600px] bg-white/20" />
+          <div className="mb-5 h-px w-full max-w-[600px] bg-black/25" />
 
           <div className="flex w-full flex-col items-center space-y-2">
             <a
@@ -788,6 +872,149 @@ export default function PortfolioPage() {
       </main>
 
       <style jsx>{`
+        .grouped-card {
+          width: min(72vw, 1040px);
+          height: min(76vh, 820px);
+        }
+
+        .grouped-card .portfolio-image-frame {
+          height: calc(100% - 76px);
+        }
+
+        .project-spread {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          transform-style: preserve-3d;
+        }
+
+        .project-image {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          object-fit: contain;
+          filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.55));
+          transform-origin: 50% 50%;
+        }
+
+        .styling-image {
+          width: 42%;
+          height: 72%;
+        }
+
+        /* Rick — upper left */
+        .styling-image-1 {
+          z-index: 1;
+          transform: translate(-112%, -82%) rotate(-6deg);
+        }
+
+        /* Hare God — centred */
+        .styling-image-2 {
+          z-index: 3;
+          transform: translate(-50%, -50%) scale(1.08);
+        }
+
+        /* Burby — lower right */
+        .styling-image-3 {
+          z-index: 2;
+          transform: translate(12%, -18%) rotate(6deg);
+        }
+
+
+
+        /* Graphic design — wide editorial collage */
+        .graphic-design-card {
+          width: min(76vw, 1100px);
+          height: min(76vh, 820px);
+        }
+
+        .graphic-design-image {
+          width: 39%;
+          height: 70%;
+        }
+
+        .graphic-design-image-1 {
+          z-index: 1;
+          transform: translate(-112%, -18%) rotate(-5deg);
+        }
+
+        .graphic-design-image-2 {
+          z-index: 3;
+          transform: translate(-50%, -50%) scale(1.08);
+        }
+
+        .graphic-design-image-3 {
+          z-index: 2;
+          transform: translate(12%, -82%) rotate(5deg);
+        }
+
+        /* Two-image placeholder section */
+        .placeholder-card {
+          width: min(72vw, 1040px);
+          height: min(76vh, 820px);
+        }
+
+        .placeholder-image {
+          width: 52%;
+          height: 78%;
+        }
+
+        .placeholder-image-1 {
+          z-index: 2;
+          transform: translate(-92%, -58%) rotate(-5deg);
+        }
+
+        .placeholder-image-2 {
+          z-index: 1;
+          transform: translate(-8%, -42%) rotate(5deg);
+        }
+
+        /* Single GIF section */
+        .gif-card {
+          width: min(64vw, 900px);
+          height: min(76vh, 820px);
+        }
+
+        .gif-image {
+          width: 90%;
+          height: 88%;
+        }
+
+        .gif-image-1 {
+          z-index: 1;
+          transform: translate(-50%, -50%);
+        }
+
+        .portfolio-copy {
+          max-width: min(34vw, 360px);
+        }
+
+        .portfolio-description {
+          margin-top: 8px;
+          max-width: 38ch;
+          font-size: 13px;
+          line-height: 1.65;
+          letter-spacing: 0.08em;
+          color: black;
+          text-transform: none;
+        }
+
+        .spotify-embed {
+          width: min(340px, 46vw);
+          margin-top: 12px;
+          position: relative;
+          z-index: 10;
+          pointer-events: auto;
+        }
+
+        .spotify-embed iframe {
+          display: block;
+          width: 100%;
+          border: 0;
+          border-radius: 12px;
+          background: transparent;
+        }
+
         .portfolio-card {
           width: min(
             42vw,
@@ -889,6 +1116,10 @@ export default function PortfolioPage() {
           );
         }
 
+        .menu-panel-link {
+          color: white;
+        }
+
         .row-link {
           padding: 8px 16px;
           color: rgba(
@@ -907,7 +1138,7 @@ export default function PortfolioPage() {
         }
 
         .row-link:hover {
-          opacity: 0.55;
+          opacity: 0.45;
           letter-spacing: 0.42em;
         }
 
@@ -927,8 +1158,202 @@ export default function PortfolioPage() {
         }
 
         @media (
+          min-width: 640px
+        ) and (
+          max-width: 1023px
+        ) {
+          .grouped-card {
+            width: min(88vw, 820px);
+            height: min(72vh, 720px);
+          }
+
+          .grouped-card .portfolio-image-frame {
+            height: calc(100% - 82px);
+          }
+
+          .styling-image {
+            width: 44%;
+            height: 70%;
+          }
+
+          .graphic-design-image {
+            width: 42%;
+            height: 68%;
+          }
+
+          .styling-image-1 {
+            transform: translate(-108%, -84%) rotate(-6deg);
+          }
+
+          .styling-image-2 {
+            transform: translate(-50%, -50%) scale(1.07);
+          }
+
+          .styling-image-3 {
+            transform: translate(8%, -16%) rotate(6deg);
+          }
+
+          .graphic-design-card {
+            width: min(92vw, 860px);
+            height: min(72vh, 720px);
+          }
+
+          .graphic-design-image-1 {
+            transform: translate(-108%, -18%) rotate(-4deg);
+          }
+
+          .graphic-design-image-2 {
+            transform: translate(-50%, -50%) scale(1.07);
+          }
+
+          .graphic-design-image-3 {
+            transform: translate(8%, -84%) rotate(4deg);
+          }
+
+          .placeholder-card {
+            width: min(92vw, 860px);
+            height: min(72vh, 720px);
+          }
+
+          .placeholder-image {
+            width: 55%;
+            height: 74%;
+          }
+
+          .placeholder-image-1 {
+            transform: translate(-88%, -58%) rotate(-4deg);
+          }
+
+          .placeholder-image-2 {
+            transform: translate(-12%, -42%) rotate(4deg);
+          }
+
+          .gif-card {
+            width: min(88vw, 800px);
+            height: min(72vh, 720px);
+          }
+
+          .gif-image {
+            width: 92%;
+            height: 86%;
+          }
+
+          .grouped-card .portfolio-copy {
+            max-width: min(72vw, 560px);
+          }
+        }
+
+        @media (
           max-width: 639px
         ) {
+          .grouped-card {
+            width: 96vw;
+            height: 72vh;
+          }
+
+          .grouped-card .portfolio-image-frame {
+            height: calc(100% - 112px);
+          }
+
+          .styling-image {
+            width: 52%;
+            height: 68%;
+          }
+
+          .graphic-design-image {
+            width: 54%;
+            height: 62%;
+          }
+
+          .styling-image-1 {
+            transform: translate(-101%, -82%) rotate(-5deg);
+          }
+
+          .styling-image-2 {
+            transform: translate(-50%, -50%) scale(1.06);
+          }
+
+          .styling-image-3 {
+            transform: translate(1%, -18%) rotate(5deg);
+          }
+
+          .graphic-design-card {
+            width: 96vw;
+            height: 72vh;
+          }
+
+          .graphic-design-image-1 {
+            z-index: 1;
+            transform: translate(-91%, -18%) rotate(-4deg);
+          }
+
+          .graphic-design-image-2 {
+            z-index: 3;
+            transform: translate(-50%, -50%) scale(1.05);
+          }
+
+          .graphic-design-image-3 {
+            z-index: 2;
+            transform: translate(-8%, -82%) rotate(4deg);
+          }
+
+          .placeholder-card {
+            width: 96vw;
+            height: 72vh;
+          }
+
+          .placeholder-image {
+            width: 66%;
+            height: 66%;
+          }
+
+          .placeholder-image-1 {
+            z-index: 2;
+            transform: translate(-78%, -72%) rotate(-4deg);
+          }
+
+          .placeholder-image-2 {
+            z-index: 1;
+            transform: translate(-22%, -22%) rotate(4deg);
+          }
+
+          .gif-card {
+            width: 94vw;
+            height: 70vh;
+          }
+
+          .gif-image {
+            width: 96%;
+            height: 82%;
+          }
+
+          .gif-image-1 {
+            transform: translate(-50%, -50%);
+          }
+
+          .grouped-card .portfolio-copy {
+            max-width: 82vw;
+          }
+
+          .portfolio-copy {
+            max-width: 62vw;
+          }
+
+          .portfolio-description {
+            margin-top: 6px;
+            font-size: 9px;
+            line-height: 1.55;
+          }
+
+          .spotify-embed {
+            width: min(78vw, 320px);
+            margin-top: 10px;
+          }
+
+          .spotify-embed iframe {
+            height: 80px;
+          }
+
           .portfolio-card {
             width: 78vw;
             height: 58vh;
