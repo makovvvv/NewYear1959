@@ -250,10 +250,7 @@ export default function PortfolioPage() {
           let activeHorizontalPosition: number;
 
           if (isMobile) {
-            activeHorizontalPosition =
-              side *
-              viewportWidth *
-              0.05;
+            activeHorizontalPosition = 0;
           } else if (isTablet) {
             activeHorizontalPosition =
               side *
@@ -1268,12 +1265,32 @@ export default function PortfolioPage() {
           max-width: 639px
         ) {
           .grouped-card {
-            width: 96vw;
-            height: 72vh;
+            width: 94vw;
+            max-width: 94vw;
+            height: 78vh;
+          }
+
+          .grouped-card > div {
+            align-items: center !important;
+            width: 100%;
+            min-width: 0;
+          }
+
+          .grouped-card > div > div:last-child {
+            width: 100%;
+            max-width: 100%;
+            min-height: 128px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row !important;
+            padding: 8px 12px 12px;
+            box-sizing: border-box;
+            margin-top: 0;
           }
 
           .grouped-card .portfolio-image-frame {
-            height: calc(100% - 112px);
+            height: calc(100% - 150px);
+            margin-bottom: 22px;
           }
 
           .styling-image {
@@ -1299,8 +1316,8 @@ export default function PortfolioPage() {
           }
 
           .graphic-design-card {
-            width: 96vw;
-            height: 72vh;
+            width: 94vw;
+            height: 78vh;
           }
 
           .graphic-design-image-1 {
@@ -1319,8 +1336,8 @@ export default function PortfolioPage() {
           }
 
           .placeholder-card {
-            width: 96vw;
-            height: 72vh;
+            width: 94vw;
+            height: 78vh;
           }
 
           .placeholder-image {
@@ -1340,7 +1357,7 @@ export default function PortfolioPage() {
 
           .video-card {
             width: 94vw;
-            height: 70vh;
+            height: 76vh;
           }
 
           .portfolio-video {
@@ -1352,25 +1369,56 @@ export default function PortfolioPage() {
           }
 
           .grouped-card .portfolio-copy {
-            max-width: 82vw;
+            width: min(80vw, 320px);
+            max-width: min(80vw, 320px);
           }
 
           .portfolio-copy {
-            width: min(82vw, 320px);
-            max-width: min(82vw, 320px);
+            width: min(80vw, 320px);
+            max-width: min(80vw, 320px);
             min-width: 0;
+            margin-inline: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center !important;
+            overflow: visible;
+          }
+
+          .portfolio-copy h2 {
+            font-size: 12px;
+            line-height: 1.4;
+            letter-spacing: 0.22em;
           }
 
           .portfolio-description {
-            margin-top: 6px;
-            font-size: 9px;
-            line-height: 1.55;
+            max-width: 100%;
+            overflow-wrap: anywhere;
+          }
+
+          .portfolio-description {
+            margin-top: 8px;
+            max-width: 100%;
+            font-size: 11px;
+            line-height: 1.6;
+            letter-spacing: 0.035em;
+            text-align: center;
+            overflow-wrap: anywhere;
           }
 
           .spotify-embed {
             width: 100%;
             max-width: 100%;
-            margin-top: 10px;
+            min-width: 0;
+            margin: 14px auto 0;
+            box-sizing: border-box;
+          }
+
+          .spotify-embed iframe {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0;
           }
 
           .spotify-embed iframe {
