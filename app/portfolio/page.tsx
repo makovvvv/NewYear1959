@@ -26,16 +26,16 @@ const portfolioItems: PortfolioItem[] = [
       "Conceptual styling for various projects and promotional material including album covers, posters, and social media content.",
     images: [
       {
-        src: "/portfolio_items/RICK.png",
-        alt: "Rick styling",
+        src: "/portfolio_items/Burby.png",
+        alt: "Burby styling",
       },
       {
         src: "/portfolio_items/HareGod.jpeg",
         alt: "Hare God styling",
       },
       {
-        src: "/portfolio_items/Burby.png",
-        alt: "Burby styling",
+        src: "/portfolio_items/RICK.png",
+        alt: "Rick styling",
       },
     ],
   },
@@ -47,12 +47,12 @@ const portfolioItems: PortfolioItem[] = [
       "Graphic design for music releases, promotional campaigns, digital media, and visual identities.",
     images: [
       {
-        src: "/portfolio_items/somfradio.png",
-        alt: "SOMF Radio graphic design",
-      },
-      {
         src: "/portfolio_items/10bucks.jpg",
         alt: "10 Bucks graphic design",
+      },
+      {
+        src: "/portfolio_items/somfradio.png",
+        alt: "SOMF Radio graphic design",
       },
       {
         src: "/portfolio_items/WAIT4U_COVER_new.png",
@@ -849,16 +849,6 @@ export default function PortfolioPage() {
 
         {/* ===== Bottom Portfolio Content ===== */}
         <section className="relative z-10 flex w-full flex-col items-center bg-white px-4 pb-10 pt-14 sm:px-6">
-          <div className="mb-1 h-px w-full max-w-[600px] bg-black/25" />
-
-          <div className="w-full max-w-[600px]">
-            <img
-              src="/portfolio_items/Portfolio_stuff.png"
-              alt="Portfolio information"
-              className="block h-auto w-full invert"
-            />
-          </div>
-
           <div className="mb-5 h-px w-full max-w-[600px] bg-black/25" />
 
           <div className="flex w-full flex-col items-center space-y-2">
@@ -1140,12 +1130,7 @@ export default function PortfolioPage() {
 
         .row-link {
           padding: 8px 16px;
-          color: rgba(
-            255,
-            255,
-            255,
-            0.65
-          );
+          color: rgba(0, 0, 0, 0.78);
           font-size: 10px;
           letter-spacing: 0.35em;
           text-transform: uppercase;
@@ -1156,7 +1141,7 @@ export default function PortfolioPage() {
         }
 
         .row-link:hover {
-          opacity: 0.45;
+          opacity: 0.55;
           letter-spacing: 0.42em;
         }
 
