@@ -224,6 +224,17 @@ export default function PortfolioPage() {
           const absoluteDistance =
             Math.abs(distance);
 
+          /*
+           * Skip expensive transform/style calculations for cards
+           * that are well outside the visible wheel area.
+           */
+          if (absoluteDistance > 1.18) {
+            item.style.opacity = "0";
+            item.style.visibility = "hidden";
+            item.style.pointerEvents = "none";
+            return;
+          }
+
           const side =
             index % 2 === 0 ? -1 : 1;
 
@@ -272,7 +283,7 @@ export default function PortfolioPage() {
             movementDirection *
             easedTransition *
             viewportHeight *
-            0.58;
+            (isMobile ? 0.44 : 0.58);
 
           const restingMovement =
             distance *
@@ -294,7 +305,7 @@ export default function PortfolioPage() {
           const scale =
             1 -
             easedTransition *
-              0.38;
+              (isMobile ? 0.18 : 0.38);
 
           const opacity =
             1 -
@@ -302,10 +313,10 @@ export default function PortfolioPage() {
               1.05;
 
           const activeRotation =
-            side * 2;
+            isMobile ? 0 : side * 2;
 
           const exitingRotation =
-            side * 32;
+            isMobile ? 0 : side * 32;
 
           const rotateY =
             activeRotation +
@@ -314,13 +325,17 @@ export default function PortfolioPage() {
                 activeRotation);
 
           const rotateX =
-            -movementDirection *
-            easedTransition *
-            10;
+            isMobile
+              ? 0
+              : -movementDirection *
+                easedTransition *
+                10;
 
           const translateZ =
-            -easedTransition *
-            280;
+            isMobile
+              ? 0
+              : -easedTransition *
+                280;
 
           /*
            * Smooth entrance for the first item.
@@ -470,7 +485,7 @@ export default function PortfolioPage() {
       {/* ===== Fixed Top Bar ===== */}
       <header className="fixed left-0 top-0 z-50 flex w-full items-center justify-center px-4 py-4">
         {/* Menu Icon */}
-        <div className="absolute left-4 z-50">
+        <div className="absolute left-4 -translate-y-[2px] z-50">
           <button
             type="button"
             onClick={() => {
@@ -581,31 +596,18 @@ export default function PortfolioPage() {
         }}
       />
 
-      {/* ===== Menu Panel ===== */}
-      <div
-        className={`
-          fixed inset-0 z-40
-          flex items-center pl-8
-          bg-gradient-to-r
-          from-black via-black/95 to-black/0
-          transition-all duration-500
-          ${
-            menuOpen
-              ? "visible translate-x-0 opacity-100"
-              : "invisible -translate-x-full opacity-0"
-          }
-        `}
-      >
-        <Link
-          href="/"
-          onClick={() =>
-            setMenuOpen(false)
-          }
-          className="panel-link menu-panel-link"
-        >
-          Home
-        </Link>
-      </div>
+      {/* ===== Full-Screen Gradient Panel ===== */}
+      {menuOpen && (
+        <div className="fixed top-0 left-0 w-screen h-screen z-40 flex flex-col justify-center items-start pl-8 bg-gradient-to-r from-white to-white/0 animate-slide-in-left">
+          <Link
+            href="/"
+            onClick={() => setMenuOpen(false)}
+            className="panel-link menu-panel-link"
+          >
+            Home
+          </Link>
+        </div>
+      )}
 
       <main>
         {/* ===== Full-Screen Portfolio Intro ===== */}
@@ -710,7 +712,7 @@ export default function PortfolioPage() {
                         transformStyle:
                           "preserve-3d",
                         willChange:
-                          "transform, opacity",
+                          "transform",
                         opacity: 0,
                         visibility:
                           "hidden",
@@ -872,6 +874,21 @@ export default function PortfolioPage() {
       </main>
 
       <style jsx>{`
+        @keyframes slideInLeft {
+          from {
+            transform: translateX(-100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
+        .animate-slide-in-left {
+          animation: slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
         .grouped-card {
           width: min(72vw, 1040px);
           height: min(76vh, 820px);
@@ -1108,10 +1125,12 @@ export default function PortfolioPage() {
 
         .panel-link {
           padding: 22px 0;
-          color: black;
+          font: inherit;
           font-size: 14px;
+          font-weight: 400;
           letter-spacing: 0.35em;
           text-transform: uppercase;
+          color: black;
           transition:
             opacity 0.3s ease,
             transform 0.3s ease;
@@ -1119,13 +1138,12 @@ export default function PortfolioPage() {
 
         .panel-link:hover {
           opacity: 0.5;
-          transform: translateX(
-            4px
-          );
+          transform: translateX(4px);
         }
 
         .menu-panel-link {
-          color: white;
+          font: inherit;
+          color: black;
         }
 
         .row-link {
@@ -1249,6 +1267,30 @@ export default function PortfolioPage() {
         @media (
           max-width: 639px
         ) {
+          /*
+           * Mobile performance:
+           * - no expensive live drop-shadows
+           * - no large blurred glow
+           * - flatten preserve-3d where possible
+           */
+          .project-image,
+          .portfolio-video {
+            filter: none !important;
+          }
+
+          .cylinder-glow {
+            display: none !important;
+            filter: none !important;
+          }
+
+          .project-spread {
+            transform-style: flat;
+          }
+
+          .portfolio-card {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+          }
           .grouped-card {
             width: 94vw;
             max-width: 94vw;
@@ -1348,9 +1390,7 @@ export default function PortfolioPage() {
           .portfolio-video {
             width: 96%;
             height: 82%;
-            filter: drop-shadow(
-              0 10px 14px rgba(0, 0, 0, 0.2)
-            );
+            filter: none;
           }
 
           .grouped-card .portfolio-copy {
@@ -1422,7 +1462,7 @@ export default function PortfolioPage() {
           }
 
           .cylinder-glow {
-            width: 125vw;
+            display: none;
           }
         }
 
