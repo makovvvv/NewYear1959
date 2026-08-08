@@ -44,7 +44,7 @@ const portfolioItems: PortfolioItem[] = [
     title: "Graphic Design",
     layout: "graphic-design",
     description:
-      "Graphic design for music releases, promotional campaigns, digital media, and visual identities.",
+      "Graphic design for music releases, commissioned posters, promotional campaigns, digital media, and visual identities.",
     images: [
       {
         src: "/portfolio_items/10bucks.jpg",
@@ -65,7 +65,7 @@ const portfolioItems: PortfolioItem[] = [
     title: "Working with Edward Skeltrix & Music production",
     layout: "placeholder",
     description:
-      "Music production with artists such as Edward Skeletrix on the project 'Body of Work'. ",
+      "Music production with artists such as Edward Skeletrix on the project 'Body of Work'.",
       spotifyEmbed:
     "https://open.spotify.com/embed/track/575dwAqwswg22jaauxebab?utm_source=generator&si=1cf68fba65754184",
     images: [
@@ -81,20 +81,67 @@ const portfolioItems: PortfolioItem[] = [
   },
 
   {
-    title: "Wait4U",
+    title: "Wait4U music video",
     layout: "video",
     description:
-      "Music video production, direction and editing for the single 'Wait4U'.",
+      " The WAIT4U music video was developed from initial visual concept through production and post-production. I was responsible for creative direction, shot planning, filming, editing, colour treatment, audio synchronisation and final delivery, shaping the visual language and aesthetic of the video. ",
     video: "/portfolio_items/Wait4U_video.mp4",
+  },
+
+  {
+    title: "Wait4U trailer video",
+    layout: "video",
+    description:
+      "The initial trailer for the single 'Wait4U', which established a visual idenitfy for the song",
+    video: "/portfolio_items/WAIT4U_trailer_1.mp4",
   },
 ];
 
 export default function PortfolioPage() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [unmutedVideoIndex, setUnmutedVideoIndex] = useState<number | null>(null);
 
   const portfolioScrollRef = useRef<HTMLElement | null>(null);
   const itemRefs = useRef<(HTMLElement | null)[]>([]);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const animationFrameRef = useRef<number | null>(null);
+
+  const toggleVideoSound = (index: number): void => {
+    const selectedVideo = videoRefs.current[index];
+
+    if (!selectedVideo) return;
+
+    const shouldUnmute = selectedVideo.muted;
+
+    /*
+     * Only allow one portfolio video to play sound at a time.
+     */
+    videoRefs.current.forEach((video, videoIndex) => {
+      if (!video) return;
+
+      if (videoIndex !== index) {
+        video.muted = true;
+      }
+    });
+
+    selectedVideo.muted = !shouldUnmute;
+    selectedVideo.volume = 1;
+
+    setUnmutedVideoIndex(
+      shouldUnmute ? index : null
+    );
+
+    /*
+     * Calling play() from the user's tap keeps this reliable
+     * on iOS/Safari when changing from muted autoplay to sound.
+     */
+    if (shouldUnmute) {
+      void selectedVideo.play().catch(() => {
+        selectedVideo.muted = true;
+        setUnmutedVideoIndex(null);
+      });
+    }
+  };
 
   const scrollToBottom = (): void => {
     window.scrollTo({
@@ -386,8 +433,11 @@ export default function PortfolioPage() {
               ? "hidden"
               : "visible";
 
+          const interactionThreshold =
+            isMobile ? 0.4 : 0.62;
+
           item.style.pointerEvents =
-            absoluteDistance < 0.4 &&
+            absoluteDistance < interactionThreshold &&
             entranceProgress >= 1
               ? "auto"
               : "none";
@@ -730,16 +780,56 @@ export default function PortfolioPage() {
                       >
                         <div className="portfolio-image-frame">
                           {portfolioItem.video ? (
-                            <video
-                              src={portfolioItem.video}
-                              autoPlay
-                              loop
-                              muted
-                              playsInline
-                              preload="metadata"
-                              aria-label={portfolioItem.title}
-                              className="portfolio-video"
-                            />
+                            <div className="portfolio-video-wrap">
+                              <video
+                                ref={(element) => {
+                                  videoRefs.current[index] = element;
+                                }}
+                                src={portfolioItem.video}
+                                autoPlay
+                                loop
+                                muted={unmutedVideoIndex !== index}
+                                playsInline
+                                preload="metadata"
+                                aria-label={portfolioItem.title}
+                                className="portfolio-video"
+                              />
+
+                              <button
+                                type="button"
+                                className="video-sound-button"
+                                onClick={(event) => {
+                                  event.stopPropagation();
+                                  toggleVideoSound(index);
+                                }}
+                                aria-pressed={unmutedVideoIndex === index}
+                                aria-label={
+                                  unmutedVideoIndex === index
+                                    ? `Turn sound off for ${portfolioItem.title}`
+                                    : `Turn sound on for ${portfolioItem.title}`
+                                }
+                              >
+                                {unmutedVideoIndex === index ? (
+                                  <svg
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                  >
+                                    <path d="M11 5 6 9H3v6h3l5 4V5Z" />
+                                    <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+                                    <path d="M18 6a8.5 8.5 0 0 1 0 12" />
+                                  </svg>
+                                ) : (
+                                  <svg
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                  >
+                                    <path d="M11 5 6 9H3v6h3l5 4V5Z" />
+                                    <path d="m16 9 5 5" />
+                                    <path d="m21 9-5 5" />
+                                  </svg>
+                                )}
+                              </button>
+                            </div>
                           ) : portfolioItem.images ? (
                             <div
                               className={`project-spread ${portfolioItem.layout}-spread`}
@@ -992,16 +1082,64 @@ export default function PortfolioPage() {
           height: min(76vh, 820px);
         }
 
-        .portfolio-video {
-          display: block;
+        .portfolio-video-wrap {
+          position: relative;
+          display: flex;
           width: 90%;
           height: 88%;
+          align-items: center;
+          justify-content: center;
+          pointer-events: auto;
+          z-index: 5;
+        }
+
+        .portfolio-video {
+          display: block;
+          width: 100%;
+          height: 100%;
           object-fit: contain;
           border-radius: 4px;
           background: transparent;
+          pointer-events: none;
           filter: drop-shadow(
             0 24px 34px rgba(0, 0, 0, 0.35)
           );
+        }
+
+        .video-sound-button {
+          position: absolute;
+          right: 12px;
+          bottom: 12px;
+          z-index: 999;
+          display: flex;
+          width: 36px;
+          height: 36px;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(255, 255, 255, 0.45);
+          border-radius: 9999px;
+          background: rgba(0, 0, 0, 0.55);
+          color: white;
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          transition:
+            background 0.2s ease,
+            transform 0.2s ease;
+        }
+
+        .video-sound-button:hover {
+          background: rgba(0, 0, 0, 0.72);
+          transform: scale(1.05);
+        }
+
+        .video-sound-button svg {
+          width: 17px;
+          height: 17px;
+          fill: none;
+          stroke: currentColor;
+          stroke-width: 1.8;
+          stroke-linecap: round;
+          stroke-linejoin: round;
         }
 
         .portfolio-copy {
@@ -1053,6 +1191,7 @@ export default function PortfolioPage() {
 
         .portfolio-image-frame {
           position: relative;
+          pointer-events: auto;
           width: 100%;
           height: calc(100% - 36px);
           overflow: visible;
@@ -1254,9 +1393,14 @@ export default function PortfolioPage() {
             height: min(72vh, 720px);
           }
 
-          .portfolio-video {
+          .portfolio-video-wrap {
             width: 92%;
             height: 86%;
+          }
+
+          .portfolio-video {
+            width: 100%;
+            height: 100%;
           }
 
           .grouped-card .portfolio-copy {
@@ -1387,10 +1531,25 @@ export default function PortfolioPage() {
             height: 76vh;
           }
 
-          .portfolio-video {
+          .portfolio-video-wrap {
             width: 96%;
             height: 82%;
+          }
+
+          .portfolio-video {
+            width: 100%;
+            height: 100%;
             filter: none;
+          }
+
+          .video-sound-button {
+            right: 8px;
+            bottom: 8px;
+            width: 34px;
+            height: 34px;
+            background: rgba(0, 0, 0, 0.72);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
           }
 
           .grouped-card .portfolio-copy {
