@@ -20,27 +20,6 @@ type PortfolioItem = {
 
 const portfolioItems: PortfolioItem[] = [
   {
-    title: "Styling",
-    layout: "styling",
-    description:
-      "Conceptual styling for various projects and promotional material including album covers, posters, and social media content.",
-    images: [
-      {
-        src: "/portfolio_items/Burby.png",
-        alt: "Burby styling",
-      },
-      {
-        src: "/portfolio_items/HareGod.jpeg",
-        alt: "Hare God styling",
-      },
-      {
-        src: "/portfolio_items/RICK.png",
-        alt: "Rick styling",
-      },
-    ],
-  },
-
-  {
     title: "Graphic Design",
     layout: "graphic-design",
     description:
@@ -62,12 +41,41 @@ const portfolioItems: PortfolioItem[] = [
   },
 
   {
+    title: "Wait4U music video",
+    layout: "video",
+    description:
+      " The WAIT4U music video was developed from initial visual concept through production and post-production. I was responsible for creative direction, shot planning, filming, editing, colour treatment, audio synchronisation and final delivery, shaping the visual language and aesthetic of the video. ",
+    video: "/portfolio_items/Wait4U_video.mp4",
+  },
+
+  {
+    title: "Styling",
+    layout: "styling",
+    description:
+      "Conceptual styling for various projects and promotional material including album covers, posters, and social media content.",
+    images: [
+      {
+        src: "/portfolio_items/Burby.png",
+        alt: "Burby styling",
+      },
+      {
+        src: "/portfolio_items/HareGod.jpeg",
+        alt: "Hare God styling",
+      },
+      {
+        src: "/portfolio_items/RICK.png",
+        alt: "Rick styling",
+      },
+    ],
+  },
+
+  {
     title: "Working with Edward Skeltrix & Music production",
     layout: "placeholder",
     description:
       "Music production with artists such as Edward Skeletrix on the project 'Body of Work'.",
-      spotifyEmbed:
-    "https://open.spotify.com/embed/track/575dwAqwswg22jaauxebab?utm_source=generator&si=1cf68fba65754184",
+    spotifyEmbed:
+      "https://open.spotify.com/embed/track/575dwAqwswg22jaauxebab?utm_source=generator&si=1cf68fba65754184",
     images: [
       {
         src: "/portfolio_items/AISTLOOM_cover.png",
@@ -78,14 +86,6 @@ const portfolioItems: PortfolioItem[] = [
         alt: "Placeholder project two",
       },
     ],
-  },
-
-  {
-    title: "Wait4U music video",
-    layout: "video",
-    description:
-      " The WAIT4U music video was developed from initial visual concept through production and post-production. I was responsible for creative direction, shot planning, filming, editing, colour treatment, audio synchronisation and final delivery, shaping the visual language and aesthetic of the video. ",
-    video: "/portfolio_items/Wait4U_video.mp4",
   },
 
   {
