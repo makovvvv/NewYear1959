@@ -88,7 +88,7 @@ const portfolioItems: PortfolioItem[] = [
     ],
   },
 
-  {
+  { 
     title: "Wait4U trailer video",
     layout: "video",
     description:
