@@ -534,7 +534,7 @@ export default function PortfolioPage() {
     <div className="relative min-h-screen w-full overflow-x-clip bg-white text-black">
       {/* ===== Fixed Top Bar ===== */}
       <header className="fixed left-0 top-0 z-50 flex w-full items-center justify-center px-4 py-4">
-        {/* Menu Icon */}
+        {/* ===== MENU BUTTON — COMMENTED OUT =====
         <div className="absolute left-4 -translate-y-[2px] z-50">
           <button
             type="button"
@@ -573,8 +573,9 @@ export default function PortfolioPage() {
             />
           </button>
         </div>
+        */}
 
-        {/* Contact Icon */}
+        {/* ===== EMAIL BUTTON — COMMENTED OUT =====
         <div className="absolute right-4 z-50">
           <button
             type="button"
@@ -609,6 +610,7 @@ export default function PortfolioPage() {
             </svg>
           </button>
         </div>
+        */}
 
         {/* Center Logo */}
         <img
